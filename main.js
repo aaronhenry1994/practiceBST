@@ -7,14 +7,13 @@ class Node {
 };
 
 const sTArray = [1, 7, 4, 23, 8, 9, 67, 6345, 324];
-console.log(sTArray);
 
 function findMid(array) {
     const mid = array[Math.floor((array.length - 1) / 2)];
 
     let midI = array.indexOf(mid);
     array.splice(midI, 1);
-    console.log(array);
+    
 
     return mid;
 };
@@ -38,13 +37,11 @@ class Tree {
         const data = findMid(array);
         const dataHolder = new Node(data);
         this.root = dataHolder;
-        console.log(this.root, 'Hello');
 
         let sides = splitArray(array);
         let leftSide = sides.leftSide;
         console.log(leftSide);
         let rightSide = sides.rightSide;
-            console.log(rightSide);
 
             const lData = findMid(leftSide);
             const lDataHolder = new Node(lData);
@@ -141,33 +138,29 @@ class Tree {
 
     delete(root, value) {
         let current = root;
-        console.log(current, 'Here');
-        console.log(value);
+        console.log(current.data, 'Delete method');
 
-        /*if (value < current) {
-            if (value === current) {
-                current = null;
-                if (current.left || current.right != null) {
-                    current = current.left || current.right;
-                };
-            }
-            if (value != current) {
-                this.delete(current.left, value);
+        //Go left to find the value (current < value)
+        if (current.data === value) {
+            current.data = null;
+            if (current.left !== null) {
+                current.data = current.left;
             };
+            if (current.right !== null) {
+                current.data = current.right;
+            }
+        }
+        if (current.data < value) {
+            this.delete(current.left, value);
         };
-        if (value > current) {
-            if (value === current) {
-                current = null;
-                if (current.left || current.right != null) {
-                    current = current.left || current.right;
-                }
-            };
-            if (value != current) {
-                this.delete(current.right, value);
-            }
-        }*/
+        if (current.data > value) {
+            this.delete(current.right, value)
+        };
+        
 
+        //Go right to find the value
 
+        return root;
     };
 
     };
@@ -187,4 +180,4 @@ console.log(tree.insert(tree.root, 5));
 console.log(tree.root, 'And here');
 console.log(tree.insert(tree.root, 20), 'Hello');
 console.log(tree.root);
-console.log(tree.delete(tree.root, 6345));
+console.log(tree.delete(tree.root, 1));
