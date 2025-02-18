@@ -136,32 +136,51 @@ class Tree {
         return root;
     };
 
-    delete(root, value) {
+    find(root, value) {
         let current = root;
-        console.log(current.data, 'Delete method');
 
-        //Go left to find the value (current < value)
         if (current.data === value) {
-            current.data = null;
-            if (current.left !== null) {
-                current.data = current.left;
-            };
-            if (current.right !== null) {
-                current.data = current.right;
-            }
-        }
-        if (current.data < value) {
-            this.delete(current.left, value);
-        };
-        if (current.data > value) {
-            this.delete(current.right, value)
+            console.log(current.data, value);
+            return current.data
         };
         
-
-        //Go right to find the value
-
-        return root;
     };
+
+    /*delete(root, value) {
+        let current = root;
+        console.log(current.data, 'Delete method');
+        console.log(value);
+
+        //base case
+        if (current.data === null) {
+            return root;
+        };
+
+        //Check the left side
+        if (current.data != value) {
+            if (current.left != value) {
+                this.delete(current.left, value)
+            };
+        };
+        //Searching the subtrees for data
+        if (current.data === value) {
+            console.log(current);
+            current.data = null;
+            if (current.data == null && current.left != null) {
+                current.data = current.left;
+                current.left = current.left.left;
+                return root;
+            };
+            if (current.data == null && current.right != null) {
+                current.data = current.right;
+                current.left = current.right.right;
+                return root;
+            }                                                                                  
+            console.log(current);
+            return root;
+        };
+        return root;
+    }; */
 
     };
 
@@ -179,5 +198,9 @@ console.log(tree.root, 'Right here');
 console.log(tree.insert(tree.root, 5));
 console.log(tree.root, 'And here');
 console.log(tree.insert(tree.root, 20), 'Hello');
-console.log(tree.root);
-console.log(tree.delete(tree.root, 1));
+
+console.log(tree.find(tree.root, 20));
+/*
+console.log(tree.delete(tree.root, 20));
+console.log(tree.delete(tree.root, 5));
+console.log(tree.delete(tree.root, 4)); */
