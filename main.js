@@ -111,65 +111,6 @@ class Tree {
         return dataHolder;
     };
 
-    /*buildTree(array) {
-        array.sort((a, b) => a - b);
-
-        const data = findMid(array);
-        const dataHolder = new Node(data);
-        this.root = dataHolder;
-
-        let sides = splitArray(array);
-        let leftSide = sides.leftSide;
-        console.log(leftSide);
-        let rightSide = sides.rightSide;
-
-            const lData = findMid(leftSide);
-            const lDataHolder = new Node(lData);
-            console.log(lDataHolder);
-
-            const rData = findMid(rightSide);
-            const rDataHolder = new Node(rData);
-            console.log(rDataHolder);
-
-            const lData2 = findMid(leftSide);
-            const lData2Holder = new Node(lData2);
-
-            const rData2 = findMid(rightSide);
-            const rData2Holder = new Node(rData2);
-
-            dataHolder.left = lDataHolder;
-            dataHolder.right = rDataHolder;
-
-            dataHolder.left.left = lData2Holder;
-
-            dataHolder.right.right = rData2Holder;
-
-            const finalTwo = (array) => {
-                let lowerNum = array[0];
-                let higherNum = array[1];
-
-                return { lowerNum, higherNum };
-            };
-
-            let lSide = finalTwo(leftSide);
-            let rSide = finalTwo(rightSide);
-
-            const lowerLData = new Node(lSide.lowerNum);
-            const higherLData = new Node(lSide.higherNum);
-
-            const lowerRData = new Node(rSide.lowerNum);
-            const higherRData = new Node(rSide.higherNum);
-
-            dataHolder.left.left.left = lowerLData;
-            dataHolder.left.left.right = higherLData;
-
-            dataHolder.right.right.left = lowerRData;
-            dataHolder.right.right.right = higherRData
-
-            return dataHolder;
-        
-    }; */
-
     inOrderTraversal(node) {
         if (node) {
             inOrderTraversal(node.left); //Traverses left subtree.
@@ -189,24 +130,34 @@ class Tree {
 
         if (current == null) {
             this.insert(root, data);
-        }
-        if (current.data < data) {
-            current = current.left;
+        };
+
+        if (current.data > data) {
+            console.log(current.data, data);
+            console.log('left');
+            if (current.left != null) {
+                current = current.left;
+            };
             if (current.left == null) {
                 current.left = newNode;
                 return root;
             };
-            console.log(current, '2');
             this.insert(current, data);
         };
-        if (current.data > data) {
-            current = current.right;
+        if (current.data < data) {
+            console.log(current.data, data);
+            console.log('right');
+            console.log(current, current.right, newNode);
+            if (current.right != null) {
+                current = current.right;
+            };
             if (current.right == null) {
                 current.right = newNode;
                 return root;
             };
             this.insert(current, data);
         };
+        
         return root;
     };
 
@@ -250,10 +201,8 @@ class Tree {
         };
     };
 
-    /*delete(root, value) {
+    delete(root, value) {
         let current = root;
-        console.log(current.data, 'Delete method');
-        console.log(value);
 
         //base case
         if (current.data === null) {
@@ -261,30 +210,13 @@ class Tree {
         };
 
         //Check the left side
-        if (current.data != value) {
-            if (current.left != value) {
-                this.delete(current.left, value)
-            };
-        };
+        
         //Searching the subtrees for data
         if (current.data === value) {
-            console.log(current);
-            current.data = null;
-            if (current.data == null && current.left != null) {
-                current.data = current.left;
-                current.left = current.left.left;
-                return root;
-            };
-            if (current.data == null && current.right != null) {
-                current.data = current.right;
-                current.left = current.right.right;
-                return root;
-            }                                                                                  
-            console.log(current);
-            return root;
+            console.log("Got it.")
         };
         return root;
-    }; */
+    };
 
     };
 
@@ -299,10 +231,9 @@ function inOrderTraversal(node) {
 };
 
 console.log(tree.root, 'Right here');
+console.log(tree.insert(tree.root, 20));
+console.log(tree.insert(tree.root, 3));
 
-//console.log(tree.find(tree.root, 20));
+console.log(tree.root);
 console.log(tree.find(tree.root, 4));
-/*
 console.log(tree.delete(tree.root, 20));
-console.log(tree.delete(tree.root, 5));
-console.log(tree.delete(tree.root, 4)); */
