@@ -139,6 +139,9 @@ class Tree {
                 current = current.left;
             };
             if (current.left == null) {
+                if (current.data === data) {
+                    return root;
+                };
                 current.left = newNode;
                 return root;
             };
@@ -152,7 +155,11 @@ class Tree {
                 current = current.right;
             };
             if (current.right == null) {
+                if (current.data === data) {
+                    return root;
+                };
                 current.right = newNode;
+                console.log(current.right, current, newNode);
                 return root;
             };
             this.insert(current, data);
@@ -199,23 +206,34 @@ class Tree {
         if (current.data > value) {
             this.find(current.right, value)
         };
+        return {current, value}
     };
 
     delete(root, value) {
         let current = root;
 
-        //base case
-        if (current.data === null) {
+        if (current.data === value) {
+            console.log(current.data, value);
+            current = null;
+            console.log(current.data, value);
+            if (current.left != null) {
+                current = current.left;
+            };
+            if (current.right != null) {
+                current = current.left;
+            };
             return root;
         };
-
-        //Check the left side
-        
-        //Searching the subtrees for data
-        if (current.data === value) {
-            console.log("Got it.")
+        if (current.data > value) {
+            console.log(current.data, value);
+            console.log(current.left);
+            this.delete(current.left, value);
         };
-        return root;
+        if (current.data < value) {
+            console.log(current.data, value);
+            console.log(current.right);
+            this.delete(current.right, value);
+        };
     };
 
     };
