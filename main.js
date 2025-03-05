@@ -211,7 +211,12 @@ class Tree {
 
     delete(root, value) {
         let current = root;
+        console.log(current);
 
+        if (current === null) {
+            return root;
+        };
+        
         if (current.data === value) {
             console.log(current.data, value);
             current = null;
