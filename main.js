@@ -90,6 +90,7 @@ class Tree {
         let right2 = rightLeft[1];
         let right3 = rightSide[0];
         let right4 = rightSide[1];
+        console.log(right1, right2, right3, right4);
 
         if (right1 < right2) {
             dataHolder.right.left = new Node(right2)
@@ -100,12 +101,12 @@ class Tree {
             dataHolder.right.left.left = new Node(right2);
         };
         if (right3 > right4) {
-            dataHolder.right.right = new Node(right3);
-            dataHolder.left.right.right = new Node(right4);
+            dataHolder.right.right = new Node(right4);
+            dataHolder.left.right.right = new Node(right3);
         };
         if (right3 < right4) {
-            dataHolder.right.right = new Node(right4);
-            dataHolder.right.right.right = new Node(right3);
+            dataHolder.right.right = new Node(right3);
+            dataHolder.right.right.right = new Node(right4);
         };
 
         return dataHolder;
@@ -170,76 +171,63 @@ class Tree {
 
     find(root, value) {
         let current = root;
-        console.log(current.data);
-        console.log(current.left);
-        console.log(current.right); 
 
-        //Easy exits out of the method if anything is found
-        if (current.data === null) {
-            return root
-        };
-        if (current.left.data === value) {
-            current = current.left;
-            console.log(current.data);
-            if (current.left.data === null) {
-                this.find(root, value);
-            };
-            return current.data
-        };
-        if (current.right.data === value) {
-            current.data = current.right;
-            console.log(current.data);
-            if (current.right.data === null) {
-                this.find(root, value);
-            }
-            return current.data
-        };
+        //If the value is found, return true
         if (current.data === value) {
             console.log(current.data, value);
-            return current.data
+            return true;
         };
 
-        //Searching the subtrees for value
-        if (current.data < value) {
-            this.find(current.left, value)
-        };
+        if (current.data != value) {
+            //Searching the subtrees for value
         if (current.data > value) {
-            this.find(current.right, value)
+            return this.find(current.left, value)
         };
-        return {current, value}
+        if (current.data < value) {
+            return this.find(current.right, value)
+        };
+        
+        };
     };
 
     delete(root, value) {
-        let current = root;
-        console.log(current);
+        if (root === null) {
+            console.log("Done");
+            return root;
+        }
 
-        if (current === null) {
-            return root;
-        };
-        
-        if (current.data === value) {
-            console.log(current.data, value);
-            current = null;
-            console.log(current.data, value);
-            if (current.left != null) {
-                current = current.left;
-            };
-            if (current.right != null) {
-                current = current.left;
-            };
-            return root;
-        };
-        if (current.data > value) {
-            console.log(current.data, value);
-            console.log(current.left);
-            this.delete(current.left, value);
-        };
-        if (current.data < value) {
-            console.log(current.data, value);
-            console.log(current.right);
-            this.delete(current.right, value);
-        };
+        if (value < root.data) {
+            console.log(root.data, value, 'Left');
+            root.left = this.delete(root.left, value);
+        } else if (value > root.data) {
+            console.log(root.data, value, 'Right');
+            root.right = this.delete(root.right, value);
+        } else {
+            console.log(root.data, value, 'Found it');
+            if (root.left === null) {
+                return root.right;
+            } else if (root.right === null) {
+                return root.left;
+            }
+
+            // Node with two children: Get the in-order successor (smallest in the right subtree)
+            let minNode = this.findMin(root.right);
+            root.data = minNode.data;
+
+            // Delete the in-order successor
+            root.right = this.delete(root.right, minNode.data);
+        }
+
+        return root;
     };
+
+    findMin(node) {
+        let current = node;
+        while (current.left !== null) {
+            current = current.left;
+        }
+        return current;
+    }
 
     };
 
@@ -259,4 +247,5 @@ console.log(tree.insert(tree.root, 3));
 
 console.log(tree.root);
 console.log(tree.find(tree.root, 4));
-console.log(tree.delete(tree.root, 20));
+console.log(tree.delete(tree.root, 6345));
+console.log(tree.find(tree.root, 324));
