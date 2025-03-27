@@ -229,6 +229,48 @@ class Tree {
         return current;
     }
 
+    levelOrder(callback) {
+        function callback() {
+            q.push(current.left);
+            q.push(current.right);
+        };
+
+        let current = this.root;
+        console.log(current);
+
+        let q = [];
+        console.log(q);
+        q.push(current);
+
+        callback();
+
+        current = current.left;
+        callback();
+        current = this.root;
+        current = current.right;
+        callback();
+
+        current = this.root;
+        current = current.left.left;
+        console.log(current);
+        callback();
+        current = this.root;
+        current = current.right.right;
+    };
+
+    inOrder(callback) {
+
+    };
+
+    preOrder(callback) {
+
+    };
+
+    postOrder(callback) {
+
+    }
+
+
     };
 
 let tree = new Tree(sTArray);
@@ -249,3 +291,5 @@ console.log(tree.root);
 console.log(tree.find(tree.root, 4));
 console.log(tree.delete(tree.root, 6345));
 console.log(tree.find(tree.root, 324));
+
+tree.levelOrder();
