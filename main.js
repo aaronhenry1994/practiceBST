@@ -231,27 +231,20 @@ class Tree {
 
     levelOrder(callback) {
         let current = this.root;
+        let q = [];
         const result = [];
-        const q = [];
-
-        //Creating a currentLevel helper function to keep track of
-        //the branches of the tree that need processed
-        function currentLevel(current) {
-
-        };
-
-        //Playing aroudn with the idea of using a function to handle the queue.
-        //This may get delegated to the callback function later
-        function enqueue() {
-
-        }
-
-        //Callback function that will be pushing values to the array
-        function callback() {
-
-        };
-
         
+        q.push(current);
+        console.log(q);
+
+        while (q.length > 0) {
+            current = q.shift();
+
+            console.log(current.data);
+            
+            if (current.left) q.push(current.left);
+            if(current.right) q.push(current.right);
+        };
     };
 
     
@@ -290,4 +283,4 @@ console.log(tree.find(tree.root, 4));
 console.log(tree.delete(tree.root, 6345));
 console.log(tree.find(tree.root, 324));
 
-tree.levelOrder(tree.root);
+console.log(tree.levelOrder(tree.root));
