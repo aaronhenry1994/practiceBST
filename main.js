@@ -244,22 +244,110 @@ class Tree {
             
             if (current.left) q.push(current.left);
             if(current.right) q.push(current.right);
+            callback(current);
         };
+
+        function callback() {
+            result.push(current);
+        };
+
+        return result;
     };
 
     
-
+    //<left subtree> <root> <right subtree>
     inOrder(callback) {
+        let current = this.root;
+        let q = [];
+        console.log(q);
 
+        const result = [];
+
+        function callback(current) {
+            result.push(current);
+        };
+
+        if (this.root == null) return;
+
+        function traverse(current) {
+            if(current.left != null) {
+                traverse(current.left);
+            };
+            if (current) {
+                callback(current);
+            };
+            if (current.right) {
+                traverse(current.right);
+            }
+        };
+
+        traverse(current);
+        
+        return result;
     };
 
+    //<root> <left subtree> <right subtree>
     preOrder(callback) {
+        let current = this.root;
+        let result = [];
+
+        function callback(current) {
+            result.push(current);
+        };
+
+        function traverse(current) {
+            if (current) {
+                callback(current);
+            };
+            if (current.left != null) {
+                traverse(current.left);
+            };
+            if (current.right) {
+                traverse(current.right);
+            };
+        };
+
+        traverse(current);
+        return result;
+    };
+
+    //<left subtree> <right subtree> <root>
+    postOrder(callback) {
+        let current = this.root;
+        let result = [];
+
+        function callback(current) {
+            result.push(current);
+        };
+
+        function traverse(current) {
+            if (current.left != null) {
+                traverse(current.left);
+            };
+            if (current.right != null) {
+                traverse(current.right);
+            };
+            if (current) {
+                callback(current);
+            }
+        };
+
+        traverse(current);
+
+        return result;
+    };
+
+    height(value) {
 
     };
 
-    postOrder(callback) {
+    depth(value) {
 
-    }
+    };
+
+    isBalanced() {
+
+    };
 
 
     };
@@ -284,3 +372,7 @@ console.log(tree.delete(tree.root, 6345));
 console.log(tree.find(tree.root, 324));
 
 console.log(tree.levelOrder(tree.root));
+
+console.log(tree.inOrder(tree.root));
+console.log(tree.preOrder(tree.root));
+console.log(tree.postOrder(tree.root));
