@@ -338,11 +338,57 @@ class Tree {
     };
 
     height(value) {
+        let current = this.root;
+        let count = 0;
+        console.log(count);
 
-    };
+        console.log(value, current.data);
+
+        function traverse(current, count) {
+          
+            if (value === current.data) {
+                return count;
+            };
+            if (value < current.data) {
+                return traverse(current.left, count + 1);
+            };
+            if (value > current.data) {
+                return traverse(current.right, count + 1);
+            };
+            
+            return count;
+        };
+
+        traverse(current, count);
+
+        return traverse(this.root, -1);
+    }
 
     depth(value) {
+        let current = this.root;
+        let count = 0;
+        console.log(count);
 
+        console.log(value, current.data);
+
+        function traverse(current, count) {
+          
+            if (value === current.data) {
+                return count;
+            };
+            if (value < current.data) {
+                return traverse(current.left, count + 1);
+            };
+            if (value > current.data) {
+                return traverse(current.right, count + 1);
+            };
+            
+            return count;
+        };
+
+        traverse(current, count);
+
+        return traverse(this.root, 0);
     };
 
     isBalanced() {
@@ -376,3 +422,6 @@ console.log(tree.levelOrder(tree.root));
 console.log(tree.inOrder(tree.root));
 console.log(tree.preOrder(tree.root));
 console.log(tree.postOrder(tree.root));
+
+console.log(tree.height(2));
+console.log(tree.depth(2));
