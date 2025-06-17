@@ -391,8 +391,26 @@ class Tree {
         return traverse(this.root, 0);
     };
 
-    isBalanced() {
+    /*Recursively check the balance of each subtree
+    and ensure the height difference is no more than one at every node
+    returning true if all are balanced */
 
+    isBalanced(root) {
+        function height(node) {
+            if (node == null) return 0;
+            return 1 + Math.max(height(node.left), height(node.right));
+        }
+
+        if (root == null) return true;
+
+        const leftHeight = height(root.left);
+        const rightHeight = height(root.right);
+
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return false;
+        }
+
+        return this.isBalanced(root.left) && this.isBalanced(root.right);
     };
 
 
@@ -424,4 +442,7 @@ console.log(tree.preOrder(tree.root));
 console.log(tree.postOrder(tree.root));
 
 console.log(tree.height(2));
+console.log(tree.height(1));
 console.log(tree.depth(2));
+
+console.log(tree.isBalanced(tree.root));
