@@ -413,6 +413,30 @@ class Tree {
         return this.isBalanced(root.left) && this.isBalanced(root.right);
     };
 
+    rebalance(root) {
+
+        let current = root;
+        let newArray = [];
+
+        newArray.push(current.data);
+        console.log(newArray);
+
+        function addToArray(current) {
+            
+            if (current.left != null) {
+                newArray.push(current.left.data);
+                addToArray(current.left);
+            };
+            if (current.right != null) {
+                newArray.push(current.right.data);
+                addToArray(current.right);
+            };
+        };
+        addToArray(current);
+        console.log(newArray);
+        return this.buildTree(newArray);
+    };
+
 
     };
 
@@ -446,3 +470,4 @@ console.log(tree.height(1));
 console.log(tree.depth(2));
 
 console.log(tree.isBalanced(tree.root));
+console.log(tree.rebalance(tree.root));
